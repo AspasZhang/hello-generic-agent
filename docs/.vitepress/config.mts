@@ -42,14 +42,30 @@ export default defineConfig({
     },
     sidebar: [
       {
+        text: 'Part 1：应用篇',
         items: [
-          { text: '第1章：第1章的标题', link: '/chapter1/' },
+          { text: '第1章：第1章的标题', link: '/part1/chapter1/' },
           { text: '第2章：第2章的标题', 
             items: [
-              { text: '第2.1节：第2.1节的标题', link: '/chapter2/chapter2_1' },
-              { text: '第2.2节：第2.2节的标题', link: '/chapter2/chapter2_2' }
+              { text: '第2.1节：第2.1节的标题', link: '/part1/chapter2/chapter2_1' },
+              { text: '第2.2节：第2.2节的标题', link: '/part1/chapter2/chapter2_2' }
             ]
-           }
+           },
+          { text: '第7章：进阶玩法',
+            items: [
+              { text: '7.1 自主行动模式', link: '/part1/chapter7/advanced-usage#_7-1-自主行动模式-autonomous' },
+              { text: '7.2 定时任务', link: '/part1/chapter7/advanced-usage#_7-2-定时任务' },
+              { text: '7.3 反射模式', link: '/part1/chapter7/advanced-usage#_7-3-反射模式' },
+              { text: '7.4 子代理', link: '/part1/chapter7/advanced-usage#_7-4-子代理' },
+              { text: '7.5 Plan 模式', link: '/part1/chapter7/advanced-usage#_7-5-plan-模式' },
+              { text: '7.6 多模型切换', link: '/part1/chapter7/advanced-usage#_7-6-多模型切换' }
+            ]
+          }
+        ]
+      },
+      {
+        text: 'Part 2：原理篇',
+        items: [
         ]
       }
     ],
