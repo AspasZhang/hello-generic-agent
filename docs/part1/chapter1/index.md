@@ -205,7 +205,6 @@ mixin_config = {
 
 **约束**：`llm_nos` 中的名字必须精确匹配到其他 config 的 `name` 字段；所有被引用的 session **必须同属** Native 系列（NativeClaude + NativeOAI 可混）或**全不属** Native 系列。
 
-</details>
 
 ---
 
@@ -251,7 +250,6 @@ GA 会自动配好。如果你电脑上没有 Git，它也会帮你下载 portab
 请帮我在桌面创建一个 launch.pyw 的快捷方式
 ```
 
-</details>
 
 
 ### 使用 Hub 总控台（可选）
