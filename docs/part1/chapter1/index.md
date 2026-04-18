@@ -477,4 +477,4 @@ native_claude_config = {
 
 ---
 
-[上一章：第 1 章 GenericAgent 概述](../README.md) | [下一章：第 3 章 基础对话与任务](../chapter2/README.md)
+[下一章：第 2 章 基础对话与任务](../chapter2/)

@@ -12,7 +12,7 @@ hero:
   actions:
     - theme: brand
       text: 开始学习
-      link: /chapter1/
+      link: /part1/chapter1/
 
 features:
   - title: 💥 前沿
