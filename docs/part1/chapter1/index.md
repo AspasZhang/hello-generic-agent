@@ -21,7 +21,7 @@ GA 依赖 Python 运行，我们先把它装好。
 1. 打开下载链接：https://www.python.org/ftp/python/3.12.10/python-3.12.10-amd64.exe
 2. 运行安装包，**底部的 "Add python.exe to PATH" 一定要勾上**，然后点击安装
 
-   ![img](images/img_1.png)
+   ![img](./images/img_1.png)
 3. 验证安装：按 `Win + R` 输入 `cmd` 打开终端，输入：
 
    ```bash
@@ -52,7 +52,7 @@ python3 --version
 2. 点绿色 **Code** 按钮 → **Download ZIP**
 3. 解压到你喜欢的位置（例如 `D:\GenericAgent`）
 
-   ![](images/img_2.png)
+   ![](./images/img_2.png)
 
 **方式二：Git Clone**
 
@@ -77,7 +77,7 @@ cd "你的GenericAgent路径"（示例： cd D:/Document/GenericAgent-main）
 pip install streamlit pywebview
 ```
 
-![](images/img_3.png)
+![](./images/img_3.png)
 
 > 💡 其余依赖不用手动装——1.5 节会教你让 GA 自己把剩余的包全装好。
 
@@ -232,7 +232,7 @@ python launch.pyw
 请查看你的代码，安装所有用得上的 python 依赖
 ```
 
-![](images/img_5.png)
+![](./images/img_5.png)
 
 ### 🛠️ 推荐：提升使用体验的两个任务
 
@@ -258,7 +258,7 @@ GA 会自动配好。如果你电脑上没有 Git，它也会帮你下载 portab
 
 启动方式：在终端执行 `python3 hub.pyw`，或直接双击 `hub.pyw` 文件。勾选想启动的服务即可，不用记命令行参数。
 
-![](images/img_6.png)
+![](./images/img_6.png)
 
 <details>
 <summary>📋 Hub 可管理的服务列表（点击展开）</summary>

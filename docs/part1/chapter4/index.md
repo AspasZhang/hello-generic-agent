@@ -23,7 +23,7 @@ GA 的四层记忆系统如下：
 | L3 技能层 | 具体 Skill：SOP / 脚本 / 目录 | `./memory/*.md`、`./memory/*.py` |
 | L4 归档层 | 压缩归档后的历史会话 | `./memory/L4_raw_sessions/` |
 
-![](images/img_1.png)
+![](./images/img_1.png)
 
 **总结**：Skill 保存在 L3（`./memory/`），并通过 L1（`./memory/global_mem_insight.txt`）帮助 GA 在每次启动时想起它们。
 
@@ -236,8 +236,8 @@ python launch.pyw --sched
 > ```
 
 <table><tr>
-<td width="25%"><img src="images/img_2.png" width="100%"></td>
-<td width="75%"><img src="images/img_3.png" width="100%"></td>
+<td width="25%"><img src="./images/img_2.png" width="100%"></td>
+<td width="75%"><img src="./images/img_3.png" width="100%"></td>
 </tr></table>
 
 ---
