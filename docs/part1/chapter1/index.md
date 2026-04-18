@@ -158,10 +158,10 @@ mixin_config = {
 
 | 方案 | 推荐变量名 | apibase | 示例 model | 备注 |
 | --- | --- | --- | --- | --- |
-| Ollama | native_oai_ollama | http://127.0.0.1:11434/v1 | qwen2.5:14b | 末尾 /v1 不能漏 |
-| llama.cpp | oai_config_llamacpp | http://127.0.0.1:8080/v1 | default | 建议走文本协议 |
-| vLLM | native_oai_vllm | http://127.0.0.1:8000/v1 | 你 load 的模型 id | 需支持 function calling |
-| LM Studio | oai_config_lmstudio | http://localhost:1234/v1 | LM Studio 模型 id | GUI 本地部署最省心 |
+| Ollama | native_oai_ollama | `http://127.0.0.1:11434/v1` | qwen2.5:14b | 末尾 /v1 不能漏 |
+| llama.cpp | oai_config_llamacpp | `http://127.0.0.1:8080/v1` | default | 建议走文本协议 |
+| vLLM | native_oai_vllm | `http://127.0.0.1:8000/v1` | 你 load 的模型 id | 需支持 function calling |
+| LM Studio | oai_config_lmstudio | `http://localhost:1234/v1` | LM Studio 模型 id | GUI 本地部署最省心 |
 
 </details>
 
