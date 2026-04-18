@@ -46,14 +46,7 @@ export default defineConfig({
         items: [
           { text: '第1章：安装与环境配置', link: '/part1/chapter1/' },
           { text: '第2章：浏览器能力解锁', link: '/part1/chapter2/' },
-          { text: '第6章：进阶玩法',
-            items: [
-              { text: '6.1 自主行动模式', link: '/part1/chapter6/#_6-1-自主行动模式-autonomous' },
-              { text: '6.2 定时任务', link: '/part1/chapter6/#_6-2-定时任务-scheduled-task' },
-              { text: '6.3 反射模式', link: '/part1/chapter6/#_6-3-反射模式-reflect' },
-              { text: '6.4 子代理模式', link: '/part1/chapter6/#_6-4-子代理模式-subagent' },
-              { text: '6.5 Plan 模式', link: '/part1/chapter6/#_6-5-plan-模式-复杂任务规划' }
-            ]
+          { text: '第6章：进阶玩法', link: '/part1/chapter6/' }
           }
         ]
       },
