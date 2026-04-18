@@ -60,6 +60,13 @@ export default defineConfig({
       {
         text: 'Part 2：原理篇',
         items: [
+          { text: '第7章：上下文信息密度', link: '/part2/chapter7/' },
+          { text: '第8章：系统全貌', link: '/part2/chapter8/' },
+          { text: '第9章：最小原子工具集', link: '/part2/chapter9/' },
+          { text: '第10章：分层记忆架构', link: '/part2/chapter10/' },
+          { text: '第11章：上下文截断与压缩', link: '/part2/chapter11/' },
+          { text: '第12章：自我进化', link: '/part2/chapter12/' },
+          { text: '第13章：涌现能力', link: '/part2/chapter13/' },
         ]
       }
     ],
