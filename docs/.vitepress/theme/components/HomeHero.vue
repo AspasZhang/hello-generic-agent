@@ -24,7 +24,7 @@
         <div class="crt">
         <div class="crt-glow">
         <div class="mascot-screen">
-        <img src="/hello-generic-agent/logo.png" alt="mascot" class="mascot-img" />
+        <img :src="withBase('/logo.png')" alt="mascot" class="mascot-img" />
         </div>
         </div>
         </div>
@@ -134,6 +134,7 @@
 
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
+import { withBase } from 'vitepress'
 
 /* ===== Typewriter ===== */
 const typeText = `class GenericAgent:
