@@ -204,7 +204,7 @@ const carouselTrack = ref(null)
 /* ===== Learn Items ===== */
 const learnItems = [
   { icon: '🚀', title: '从零跑通你的第一个 GA', desc: '安装环境、配好密钥、解锁浏览器与视觉能力——10 分钟拥有一个能干活的本地 Agent' },
-  { icon: '⚡', title: '沿着最佳实践快速养成 GA 核心能力', desc: 'Skill 沉淀、平台接入、进阶用法——跟着教程一步步做完，你的 GA 就从"刚装好"直接进化到"开箱即战"' },
+  { icon: '⚡', title: '沿着最佳实践快速养成 GA 核心能力', desc: 'Skill 沉淀、平台接入、进阶用法——跟着教程一步步做完，你的 GA 就从"刚装好"直接进化到"开箱即用"' },
   { icon: '🔍', title: '读懂 GA 背后的设计原理', desc: '信息密度、最小工具集、分层记忆、自我进化——知其然更知其所以然，真正掌握 Agent 的底层逻辑' },
   { icon: '🧠', title: '理解 Agent 设计的第一性原理', desc: '从"上下文越长表现越差"这个反直觉事实出发，掌握信息密度最大化的核心设计哲学' },
   { icon: '🔧', title: '拆解 GA 的四大核心机制', desc: '最小原子工具集、分层记忆架构、上下文截断压缩、自我进化——逐一看懂每个机制为什么这样设计' },
@@ -216,7 +216,7 @@ const jumpLinks = [
   { icon: '🚀', title: '快速开始', desc: '10 分钟搭好环境', link: '/part1/chapter1/', external: false },
   { icon: '📖', title: '应用篇', desc: '从安装到实战', link: '/part1/chapter1/', external: false },
   { icon: '⚙️', title: '原理篇', desc: '深入设计哲学', link: '/part2/chapter7/', external: false },
-  { icon: '🐙', title: 'GitHub', desc: '查看源码', link: 'https://github.com/lsdefine/GenericAgent', external: true },
+  { icon: '🐙', title: 'GitHub', desc: '查看GA源码，记得Star！', link: 'https://github.com/lsdefine/GenericAgent', external: true },
   { icon: '📥', title: 'PDF 下载', desc: '离线阅读', link: 'https://github.com/AspasZhang/hello-generic-agent/releases', external: true },
   { icon: '💬', title: '提 Issue', desc: '反馈与讨论', link: 'https://github.com/AspasZhang/hello-generic-agent/issues', external: true },
 ]
