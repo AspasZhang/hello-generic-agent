@@ -1,41 +1,52 @@
-<h1 align="center"> 项目名称（⚠️ Alpha内测版 / 🧪 Beta公测版） </h1>
-
-> [!CAUTION]
-> ⚠️ Alpha内测版本警告：此为早期内部构建版本，尚不完整且可能存在错误，欢迎大家提Issue反馈问题或建议。
-
-或者
+<h1 align="center"> Hello Generic Agent（🧪 Beta公测版） </h1>
 
 > [!WARNING]
 > 🧪 Beta公测版本提示：教程主体已完成，正在优化细节，欢迎大家提Issue反馈问题或建议。
 
-*这里写项目的各类介绍信息、背景、动机等内容*
+本项目是 Generic Agent（GA）的入门教程，从零开始带你掌握这款以"上下文信息密度最大化"为核心原则的通用智能体。教程分为两大部分：**应用指南**帮助你快速上手 GA 的安装、配置与日常使用；**原理篇**深入剖析 GA 的架构设计与关键技术，包括最小原子工具集、分层记忆体系、上下文压缩策略和自我进化机制，让你不仅会用，更能理解其背后的设计哲学。
 
 ## 项目受众
 
-*注：这里写你的项目所面向的受众，本项目能给他们带来什么，对他们的基础能力要求有哪些*
+- 为Openclaw、ClaudeCode 超大token消耗而苦恼的Agent使用者，GA的token使用效率是Openclaw的10x-30x
+- 还在对比各种自进化智能体性能的Agent开发者和爱好者，给GA一天时间就能进化成你的专属助手
+- 还在愁找不到好用web插件的openclaw使用者，GA的web操作能力绝对能让你眼前一亮
+- 希望了解GA设计原理（上下文工程、记忆系统、工具设计、自我进化）的技术学习者
+- 基础要求：无基础要求
 
 ## 在线阅读
-https://datawhalechina.github.io/repo-template
+
+https://datawhalechina.github.io/hello-generic-agent
 
 ## 目录
-*这里写你的项目目录，及其完成状态，已完成的部分添加上跳转链接*
 
-|  章节名   | 简介 | 状态 |
-|  ----  | ---- | ---- |
-| [第1章 xxx](https://github.com/datawhalechina/repo-template/blob/main/docs/chapter1)  | xxx | ✅ |
-| [第2章 xxx](https://github.com/datawhalechina/repo-template/blob/main/docs/chapter2)  | xxx | ✅ |
-| [第3章 xxx](https://github.com/datawhalechina/repo-template/blob/main/docs/chapter3)  | xxx | ✅ |
-| 第4章  | xxx | 🚧 |
+### 第一部分：应用指南
+
+| 章节名                                                  | 简介                                                       | 状态 |
+| ------------------------------------------------------- | ---------------------------------------------------------- | ---- |
+| [第1章 安装与环境配置](docs/part1/chapter1/index.md)       | Python 安装、项目下载、API Key 配置、GUI 与命令行启动      | ✅   |
+| [第2章 浏览器能力解锁](docs/part1/chapter2/index.md)       | 安装 tmwd_cdp_bridge 插件，实现浏览器自动化操控            | ✅   |
+| [第3章 基础入门：第一个小时](docs/part1/chapter3/index.md) | GA 界面介绍、OCR/视觉能力、飞书CLI、文件搜索、多轮对话技巧 | ✅   |
+| [第4章 记忆与技能体系](docs/part1/chapter4/index.md)       | 四层记忆架构（L1-L4）、技能蒸馏、技能搜索与迁移            | ✅   |
+| [第5章 聊天平台集成](docs/part1/chapter5/index.md)         | 微信、飞书、钉钉、QQ、Telegram、企业微信接入指南           | ✅   |
+| [第6章 进阶技巧](docs/part1/chapter6/index.md)             | 自主行动模式、定时任务、Reflect 模式、子智能体、Plan 模式  | ✅   |
+
+### 第二部分：原理篇
+
+| 章节名                                                  | 简介                                                          | 状态 |
+| ------------------------------------------------------- | ------------------------------------------------------------- | ---- |
+| [第7章 上下文信息密度最大化](docs/part2/chapter7/index.md) | GA 的第一性原理：信息密度优先于上下文长度                     | ✅   |
+| [第8章 系统架构总览](docs/part2/chapter8/index.md)         | 统一智能体循环、双执行模式、四大机制协同                      | ✅   |
+| [第9章 最小原子工具集](docs/part2/chapter9/index.md)       | 9 个原子工具覆盖五大能力类别，Token 效率达 Claude Code 的 35% | ✅   |
+| [第10章 分层记忆架构](docs/part2/chapter10/index.md)       | 四层记忆（L1 索引→L2 事实→L3 SOP→L4 归档）与按需加载策略   | ✅   |
+| [第11章 上下文截断与压缩](docs/part2/chapter11/index.md)   | 四级压缩流水线，将上下文控制在 30k Token 以内                 | ✅   |
+| [第12章 自我进化](docs/part2/chapter12/index.md)           | 从自然语言到 SOP 再到代码执行的三阶段进化，节省 89.6% Token   | ✅   |
+| [第13章 涌现能力](docs/part2/chapter13/index.md)           | 三个简单原语组合涌现出子智能体、看门狗、定时任务等高级行为    | ✅   |
 
 ## 贡献者名单
 
 | 姓名 | 职责 | 简介 |
-| :----| :---- | :---- |
-| 小明 | 项目负责人 | 一个理想主义者 |
-| 小红 | 第1章贡献者 | 小明的朋友 |
-| 小强 | 第2章贡献者 | 小明的朋友 |
-
-*注：表头可自定义，但必须在名单中标明项目负责人*
+| :--- | :--- | :--- |
+|      |      |      |
 
 ## 参与贡献
 
@@ -52,6 +63,4 @@ https://datawhalechina.github.io/repo-template
 
 ## LICENSE
 
-<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="知识共享许可协议" style="border-width:0" src="https://img.shields.io/badge/license-CC%20BY--NC--SA%204.0-lightgrey" /></a><br />本作品采用<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a>进行许可。
-
-*注：默认使用CC 4.0协议，也可根据自身项目情况选用其他协议*
+`<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="知识共享许可协议" style="border-width:0" src="https://img.shields.io/badge/license-CC%20BY--NC--SA%204.0-lightgrey" />``</a><br />`本作品采用`<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">`知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议`</a>`进行许可。

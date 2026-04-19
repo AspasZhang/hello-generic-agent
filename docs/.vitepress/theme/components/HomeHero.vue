@@ -118,17 +118,7 @@
       </div>
     </div>
 
-    <!-- ===== TEAM ===== -->
-    <div class="team-section">
-      <h2 class="section-title">贡献者</h2>
-      <p class="team-desc">本教程由 Datawhale 开源社区成员共同编写维护</p>
-      <div class="team-grid">
-        <a class="team-avatar" v-for="(m, i) in teamMembers" :key="i" :href="'https://github.com/' + m.github" target="_blank" :title="m.name">
-          <img :src="'https://github.com/' + m.github + '.png'" :alt="m.name" />
-          <span>{{ m.name }}</span>
-        </a>
-      </div>
-    </div>
+
   </div>
 </template>
 
@@ -221,10 +211,7 @@ const jumpLinks = [
   { icon: '💬', title: '提 Issue', desc: '反馈与讨论', link: 'https://github.com/AspasZhang/hello-generic-agent/issues', external: true },
 ]
 
-/* ===== Team ===== */
-const teamMembers = [
-  { name: 'AspasZhang', github: 'AspasZhang' },
-]
+
 </script>
 
 <style>
@@ -864,25 +851,7 @@ transform: rotateY(-5deg) rotateX(2deg);
 .jump-card h4 { font-size: 0.95rem; margin: 0 0 4px; font-weight: 700; }
 .jump-card p { font-size: 0.8rem; color: #777; margin: 0; }
 
-/* ===== TEAM ===== */
-.team-section {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 30px 40px 60px;
-  text-align: center;
-}
-.team-desc { color: #777; font-size: 0.95rem; margin-bottom: 24px; }
-.team-grid { display: flex; gap: 24px; justify-content: center; flex-wrap: wrap; }
-.team-avatar {
-  display: flex; flex-direction: column; align-items: center; gap: 6px;
-  text-decoration: none; color: inherit; transition: transform 0.2s;
-}
-.team-avatar:hover { transform: translateY(-3px); }
-.team-avatar img {
-  width: 56px; height: 56px; border-radius: 50%;
-  border: 2px solid #e8e4da; object-fit: cover;
-}
-.team-avatar span { font-size: 0.8rem; color: #555; }
+
 
 /* ===== Responsive ===== */
 @media (max-width: 768px) {
