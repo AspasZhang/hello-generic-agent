@@ -245,7 +245,7 @@ const jumpLinks = [
   justify-content: space-between;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 100px 40px 40px;
+  padding: 40px 40px 40px;
   gap: 40px;
 }
 .text-section { flex: 1; max-width: 520px; }
