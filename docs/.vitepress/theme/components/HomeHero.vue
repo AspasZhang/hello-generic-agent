@@ -223,9 +223,7 @@ const jumpLinks = [
 
 /* ===== Team ===== */
 const teamMembers = [
-  { name: 'ZZJ', github: 'zzj0402' },
-  { name: 'Member2', github: 'datawhalechina' },
-  { name: 'Member3', github: 'datawhalechina' },
+  { name: 'AspasZhang', github: 'AspasZhang' },
 ]
 </script>
 
