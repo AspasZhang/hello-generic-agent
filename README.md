@@ -66,7 +66,7 @@
 | ------------------------------------------------------- | ------------------------------------------------------------- | ---- |
 | [第7章 上下文信息密度最大化](docs/part2/chapter7/index.md) | GA 的第一性原理：信息密度优先于上下文长度                     | ✅   |
 | [第8章 系统架构总览](docs/part2/chapter8/index.md)         | 统一智能体循环、双执行模式、四大机制协同                      | ✅   |
-| [第9章 最小原子工具集](docs/part2/chapter9/index.md)       | 9 个原子工具覆盖五大能力类别，Token 效率达 Claude Code 的 35% | ✅   |
+| [第9章 最小原子工具集](docs/part2/chapter9/index.md)       | 9 个原子工具覆盖五大能力类别，Token 消耗仅 Claude Code 的 35% | ✅   |
 | [第10章 分层记忆架构](docs/part2/chapter10/index.md)       | 四层记忆（L1 索引→L2 事实→L3 SOP→L4 归档）与按需加载策略   | ✅   |
 | [第11章 上下文截断与压缩](docs/part2/chapter11/index.md)   | 四级压缩流水线，将上下文控制在 30k Token 以内                 | ✅   |
 | [第12章 自我进化](docs/part2/chapter12/index.md)           | 从自然语言到 SOP 再到代码执行的三阶段进化，节省 89.6% Token   | ✅   |
