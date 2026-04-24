@@ -147,8 +147,7 @@ mixin_config = {
 | MiniMax（Anthropic）     | native_claude_config_minimax   | sk-xxx      | [https://api.minimaxi.com/anthropic](https://api.minimaxi.com/anthropic)             | MiniMax-M2.7              | 204K 上下文                       |
 | MiniMax（OAI）           | oai_config_minimax             | sk-cp-xxx   | [https://api.minimaxi.com/v1](https://api.minimaxi.com/v1)                           | MiniMax-M2.7              | 回复带 think 标签                 |
 | Moonshot / Kimi          | oai_config_kimi                | sk-xxx      | [https://api.moonshot.cn/v1](https://api.moonshot.cn/v1)                             | kimi-k2-turbo-preview     | 温度强制 1.0                      |
-| DeepSeek V4              | oai_config_deepseek            | sk-xxx      | [https://api.deepseek.com](https://api.deepseek.com)                                 | deepseek-v4-pro           | V4 系列 Tool Calling 已完善       |
-| DeepSeek V4（Anthropic） | native_claude_config_deepseek  | sk-xxx      | [https://api.deepseek.com/anthropic](https://api.deepseek.com/anthropic)             | deepseek-v4-pro           | 推荐，Native 接口思考链更稳定     |
+| DeepSeek V4              | native_oai_config_deepseek     | sk-xxx      | [https://api.deepseek.com](https://api.deepseek.com)                                 | deepseek-v4-pro           | ⚠️ 不带 /v1              |
 | 阶跃星辰                 | oai_config_stepfun             | xxx.yyy     | [https://api.stepfun.com/v1](https://api.stepfun.com/v1)                             | step-2-16k                | OAI 兼容                          |
 | 豆包 / 火山引擎          | oai_config_volcengine          | xxx-xxx     | [https://ark.cn-beijing.volces.com/api/v3](https://ark.cn-beijing.volces.com/api/v3) | doubao-seed-1-8           | OAI 兼容                          |
 | 硅基流动                 | oai_config_siliconflow         | sk-xxx      | [https://api.siliconflow.cn/v1](https://api.siliconflow.cn/v1)                       | deepseek-ai/DeepSeek-V3   | 新用户 16 元免费额度              |
@@ -210,10 +209,10 @@ DeepSeek 于 2026 年4月24日发布了 V4 系列模型，相比之前的 V3 / R
 #### 最简配置（推荐 V4-Pro）
 
 ```python
-oai_config_deepseek = {
+native_oai_config_deepseek = {
     'name': 'deepseek-v4',
     'apikey': 'sk-<你的 DeepSeek API Key>',
-    'apibase': 'https://api.deepseek.com',          # ⚠️ 不带 /v1
+    'apibase': 'https://api.deepseek.com',           # ⚠️ 不带 /v1
     'model': 'deepseek-v4-pro',
     'thinking_type': 'enabled',                      # 开启思考链（默认就是开）
     'reasoning_effort': 'high',                      # high 或 max
@@ -225,7 +224,7 @@ oai_config_deepseek = {
 #### 省钱配置（V4-Flash，适合日常对话）
 
 ```python
-oai_config_deepseek = {
+native_oai_config_deepseek = {
     'name': 'deepseek-v4-flash',
     'apikey': 'sk-<你的 DeepSeek API Key>',
     'apibase': 'https://api.deepseek.com',
@@ -242,7 +241,7 @@ oai_config_deepseek = {
 
 > 💡 **思考模式注意事项**：开启思考模式（`thinking_type: 'enabled'`）时，`temperature`、`top_p` 等采样参数**不生效**（设了也不报错，但会被忽略）。如果需要精确控制采样，请关闭思考模式。
 
-#### 🌟 Native 接口配置（推荐）
+#### 🌟 Native Claude 接口配置（推荐）
 
 DeepSeek V4 支持 Anthropic 协议端点，GA 的 `native_claude` 接口对思考链和 Tool Calling 的处理更成熟，**推荐优先使用此方式**：
 
