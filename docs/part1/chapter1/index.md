@@ -252,25 +252,7 @@ native_oai_config_deepseek = {
 }
 ```
 
-#### 省钱配置（V4-Flash，适合日常对话）
-
-```python
-native_oai_config_deepseek = {
-    'name': 'deepseek-v4-flash',
-    'apikey': 'sk-<你的 DeepSeek API Key>',
-    'apibase': 'https://api.deepseek.com',
-    'model': 'deepseek-v4-flash',
-    'reasoning_effort': 'low',                       # 降低思考深度，省 token
-    'read_timeout': 60,
-    'stream': True,
-}
-```
-
-> ⚠️ **关于 V4 的思考 tokens**：V4 系列模型**始终会产生思考 tokens**。上方配置使用 `'reasoning_effort': 'low'` 来降低思考深度、节省 token 开销。注意不要使用 `thinking_type: 'disabled'`，该参数在 OAI 协议下可能导致 tool calling 消息格式异常（报错 `未知变体 tool_use`）。
-
 > 💡 **如何获取 API Key**：前往 [DeepSeek 开放平台](https://platform.deepseek.com/) 注册账号，在「API Keys」页面创建密钥即可。新用户通常有免费额度。
-
-> 💡 **思考模式注意事项**：开启思考模式（`thinking_type: 'enabled'`）时，`temperature`、`top_p` 等采样参数**不生效**（设了也不报错，但会被忽略）。如果需要精确控制采样，请关闭思考模式。
 
 #### 🌟 Native Claude 接口配置（推荐）
 
