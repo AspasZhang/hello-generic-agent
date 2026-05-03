@@ -260,13 +260,13 @@ native_oai_config_deepseek = {
     'apikey': 'sk-<你的 DeepSeek API Key>',
     'apibase': 'https://api.deepseek.com',
     'model': 'deepseek-v4-flash',
-    'thinking_type': 'disabled',                     # 不展示思考过程，回复更简洁
+    'reasoning_effort': 'low',                       # 降低思考深度，省 token
     'read_timeout': 60,
     'stream': True,
 }
 ```
 
-> ⚠️ **关于 V4 的思考 tokens**：V4 系列模型**始终会产生思考 tokens**（即使设置 `thinking_type: 'disabled'`）。`disabled` 的作用是让 GA 不显示思考链内容，但后端仍会消耗思考 tokens 并计费。如果想真正减少思考开销，可以用 `'reasoning_effort': 'low'` 来降低思考深度。
+> ⚠️ **关于 V4 的思考 tokens**：V4 系列模型**始终会产生思考 tokens**。上方配置使用 `'reasoning_effort': 'low'` 来降低思考深度、节省 token 开销。注意不要使用 `thinking_type: 'disabled'`，该参数在 OAI 协议下可能导致 tool calling 消息格式异常（报错 `未知变体 tool_use`）。
 
 > 💡 **如何获取 API Key**：前往 [DeepSeek 开放平台](https://platform.deepseek.com/) 注册账号，在「API Keys」页面创建密钥即可。新用户通常有免费额度。
 
