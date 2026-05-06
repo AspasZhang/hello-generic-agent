@@ -1,5 +1,5 @@
 import { execSync, spawn } from 'child_process';
-import { readFileSync, mkdirSync, existsSync } from 'fs';
+import { mkdirSync } from 'fs';
 import puppeteer from 'puppeteer';
 import { PDFDocument } from 'pdf-lib';
 import { writeFile } from 'fs/promises';
@@ -23,8 +23,7 @@ const chapters = [
 ];
 
 const BASE = '/hello-generic-agent';
-const PORT = 4173; // vitepress preview port
-const OUTPUT_DIR = 'pdf-output';
+const PORT = 4173;
 const FINAL_PDF = 'hello-generic-agent.pdf';
 
 async function waitForServer(url, timeout = 30000) {
@@ -56,7 +55,6 @@ async function main() {
   console.log(`✅ Server ready at ${baseUrl}`);
 
   // 3. Launch Puppeteer
-  mkdirSync(OUTPUT_DIR, { recursive: true });
   const browser = await puppeteer.launch({
     headless: true,
     args: ['--no-sandbox', '--disable-setuid-sandbox'],
@@ -68,7 +66,10 @@ async function main() {
     const url = `http://localhost:${PORT}${BASE}${chapter}`;
     console.log(`📄 Exporting: ${chapter}`);
     const page = await browser.newPage();
-    await page.goto(url, { waitUntil: 'networkidle0', timeout: 60000 });
+    await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 30000 });
+
+    // Wait for images and math to render
+    await new Promise(r => setTimeout(r, 3000));
 
     // Hide sidebar and nav for cleaner PDF
     await page.addStyleTag({
@@ -82,8 +83,8 @@ async function main() {
       `,
     });
 
-    // Wait for images and math to render
-    await new Promise(r => setTimeout(r, 2000));
+    // Brief wait after style injection
+    await new Promise(r => setTimeout(r, 500));
 
     const pdf = await page.pdf({
       format: 'A4',
