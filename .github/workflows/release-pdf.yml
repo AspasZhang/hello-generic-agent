@@ -24,40 +24,49 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y pandoc texlive-xetex texlive-fonts-recommended \
-            texlive-lang-chinese texlive-latex-extra fonts-noto-cjk fonts-noto-color-emoji
+            texlive-lang-chinese texlive-latex-extra fonts-noto-cjk
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
 
       - name: Create LaTeX header
         run: |
-          cat > header.tex << 'EOF'
-          % Emoji support via fallback font
-          \usepackage{fontspec}
-          \newfontfamily\emojifont{Noto Color Emoji}[Renderer=Harfbuzz]
-          \DeclareTextFontCommand{\textemoji}{\emojifont}
-
-          % Table fixes: prevent overflow, allow line breaks
+          cat > header.tex << 'LATEX'
           \usepackage{longtable,booktabs,array}
           \usepackage{makecell}
-          \usepackage{adjustbox}
-
-          % Shrink tables to fit page width
-          \let\oldlongtable\longtable
-          \renewcommand{\longtable}{\tiny\oldlongtable}
-
-          % Allow line breaks in table cells
-          \usepackage{tabularx}
           \renewcommand{\arraystretch}{1.3}
-          \setlength{\tabcolsep}{4pt}
-
-          % Prevent images from overflowing
+          \setlength{\tabcolsep}{3pt}
+          \let\oldlongtable\longtable
+          \renewcommand{\longtable}{\footnotesize\oldlongtable}
           \usepackage{graphicx}
           \makeatletter
           \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
           \makeatother
           \setkeys{Gin}{width=\maxwidth,keepaspectratio}
-          EOF
+          LATEX
 
       - name: Build PDF
         run: |
+          pip install emoji
+
+          # Create preprocessing script
+          cat > preprocess.py << 'PYTHON'
+          import emoji
+          import sys
+          import re
+
+          def replace_emoji(text):
+              """Replace emoji with their text description"""
+              return emoji.replace_emoji(text, replace=lambda chars, data_dict: f'[{data_dict["en"]}]' if data_dict.get("en") else '')
+
+          content = sys.stdin.read()
+          # Also handle some common emoji that might not be in the library
+          content = replace_emoji(content)
+          sys.stdout.write(content)
+          PYTHON
+
           # Combine all chapter markdown files in order
           CHAPTERS=(
             docs/part1/chapter1/index.md
@@ -87,8 +96,11 @@ jobs:
             echo "\\newpage" >> combined.md
           done
 
+          # Preprocess: replace emoji with text descriptions
+          python preprocess.py < combined.md > combined_clean.md
+
           # Generate PDF with pandoc
-          pandoc combined.md \
+          pandoc combined_clean.md \
             -o hello-generic-agent.pdf \
             --pdf-engine=xelatex \
             --include-in-header=header.tex \
@@ -118,18 +130,18 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ github.event.inputs.version || github.ref_name }}
-          name: "📖 Hello Generic Agent ${{ github.event.inputs.version || github.ref_name }}"
+          name: "Hello Generic Agent ${{ github.event.inputs.version || github.ref_name }}"
           body: |
-            ## 📥 下载
+            ## 下载
             下载下方 `hello-generic-agent.pdf` 即可离线阅读。
 
-            ### 📚 内容包含
+            ### 内容包含
             - Part 1：应用篇（第1-6章）
             - Part 2：原理篇（第7-13章）
             - Part 3：实战篇（Case 1）
 
             ---
-            🌐 [在线阅读](https://datawhalechina.github.io/hello-generic-agent/)
+            在线阅读: https://datawhalechina.github.io/hello-generic-agent/
           files: hello-generic-agent.pdf
           draft: false
           prerelease: false
