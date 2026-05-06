@@ -1,0 +1,74 @@
+name: Build PDF & Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: '版本号 (如 v1.0.0)'
+        required: true
+        default: 'v1.0.0'
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  build-pdf:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: |
+          npm ci
+          npm install puppeteer pdf-lib
+
+      - name: Install Chrome dependencies
+        run: npx puppeteer browsers install chrome
+
+      - name: Export PDF
+        run: node scripts/export-pdf.mjs
+
+      - name: Determine version
+        id: version
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "tag=${{ github.event.inputs.version }}" >> $GITHUB_OUTPUT
+          else
+            echo "tag=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.version.outputs.tag }}
+          name: "Hello Generic Agent 教程 ${{ steps.version.outputs.tag }}"
+          body: |
+            ## 📖 Hello Generic Agent 教程 PDF 版本
+
+            从安装到原理，全面掌握以"上下文信息密度最大化"为核心的 Generic Agent。
+
+            ### 📥 下载
+            下载下方 `hello-generic-agent.pdf` 即可离线阅读。
+
+            ### 📚 内容包含
+            - Part 1：应用篇（第1-6章）
+            - Part 2：原理篇（第7-13章）
+            - Part 3：实战篇（Case 1）
+
+            ---
+            🌐 [在线阅读](https://datawhalechina.github.io/hello-generic-agent/)
+          files: hello-generic-agent.pdf
+          draft: false
+          prerelease: false
