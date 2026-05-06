@@ -23,7 +23,38 @@ jobs:
       - name: Install pandoc and LaTeX
         run: |
           sudo apt-get update
-          sudo apt-get install -y pandoc texlive-xetex texlive-fonts-recommended texlive-lang-chinese fonts-noto-cjk
+          sudo apt-get install -y pandoc texlive-xetex texlive-fonts-recommended \
+            texlive-lang-chinese texlive-latex-extra fonts-noto-cjk fonts-noto-color-emoji
+
+      - name: Create LaTeX header
+        run: |
+          cat > header.tex << 'EOF'
+          % Emoji support via fallback font
+          \usepackage{fontspec}
+          \newfontfamily\emojifont{Noto Color Emoji}[Renderer=Harfbuzz]
+          \DeclareTextFontCommand{\textemoji}{\emojifont}
+
+          % Table fixes: prevent overflow, allow line breaks
+          \usepackage{longtable,booktabs,array}
+          \usepackage{makecell}
+          \usepackage{adjustbox}
+
+          % Shrink tables to fit page width
+          \let\oldlongtable\longtable
+          \renewcommand{\longtable}{\tiny\oldlongtable}
+
+          % Allow line breaks in table cells
+          \usepackage{tabularx}
+          \renewcommand{\arraystretch}{1.3}
+          \setlength{\tabcolsep}{4pt}
+
+          % Prevent images from overflowing
+          \usepackage{graphicx}
+          \makeatletter
+          \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+          \makeatother
+          \setkeys{Gin}{width=\maxwidth,keepaspectratio}
+          EOF
 
       - name: Build PDF
         run: |
@@ -60,20 +91,26 @@ jobs:
           pandoc combined.md \
             -o hello-generic-agent.pdf \
             --pdf-engine=xelatex \
+            --include-in-header=header.tex \
             -V mainfont="Noto Sans CJK SC" \
+            -V sansfont="Noto Sans CJK SC" \
             -V monofont="Noto Sans Mono CJK SC" \
-            -V geometry:margin=2.5cm \
+            -V CJKmainfont="Noto Sans CJK SC" \
+            -V geometry:margin=2cm \
+            -V geometry:a4paper \
             -V colorlinks=true \
             -V linkcolor=blue \
             -V urlcolor=blue \
+            -V fontsize=11pt \
             --highlight-style=tango \
-            -V CJKmainfont="Noto Sans CJK SC" \
             --toc \
+            --toc-depth=2 \
             -V toc-title="目录" \
             -V title="Hello Generic Agent 教程" \
             -V author="Datawhale" \
             -V date="$(date +%Y-%m-%d)" \
-            --resource-path=docs
+            --resource-path=.:docs:docs/part1:docs/part2:docs/part3 \
+            --wrap=none
 
           echo "✅ PDF generated: $(ls -lh hello-generic-agent.pdf | awk '{print $5}')"
 
