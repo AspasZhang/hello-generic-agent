@@ -32,7 +32,7 @@ jobs:
       - name: Install dependencies
         run: |
           npm ci
-          npm install puppeteer pdf-lib
+          npm install puppeteer pdf-lib serve
 
       - name: Install Chrome dependencies
         run: npx puppeteer browsers install chrome

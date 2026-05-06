@@ -1,58 +1,45 @@
 import { execSync, spawn } from 'child_process';
-import { mkdirSync } from 'fs';
+import { resolve } from 'path';
 import puppeteer from 'puppeteer';
 import { PDFDocument } from 'pdf-lib';
 import { writeFile } from 'fs/promises';
 
 // 章节顺序（与 sidebar 一致）
 const chapters = [
-  '/part1/chapter1/',
-  '/part1/chapter2/',
-  '/part1/chapter3/',
-  '/part1/chapter4/',
-  '/part1/chapter5/',
-  '/part1/chapter6/',
-  '/part2/chapter7/',
-  '/part2/chapter8/',
-  '/part2/chapter9/',
-  '/part2/chapter10/',
-  '/part2/chapter11/',
-  '/part2/chapter12/',
-  '/part2/chapter13/',
-  '/part3/chapter14/',
+  'part1/chapter1/',
+  'part1/chapter2/',
+  'part1/chapter3/',
+  'part1/chapter4/',
+  'part1/chapter5/',
+  'part1/chapter6/',
+  'part2/chapter7/',
+  'part2/chapter8/',
+  'part2/chapter9/',
+  'part2/chapter10/',
+  'part2/chapter11/',
+  'part2/chapter12/',
+  'part2/chapter13/',
+  'part3/chapter14/',
 ];
 
-const BASE = '/hello-generic-agent';
-const PORT = 4173;
+const PORT = 8787;
 const FINAL_PDF = 'hello-generic-agent.pdf';
-
-async function waitForServer(url, timeout = 30000) {
-  const start = Date.now();
-  while (Date.now() - start < timeout) {
-    try {
-      const res = await fetch(url);
-      if (res.ok) return;
-    } catch {}
-    await new Promise(r => setTimeout(r, 500));
-  }
-  throw new Error(`Server not ready at ${url} after ${timeout}ms`);
-}
 
 async function main() {
   // 1. Build VitePress
   console.log('📦 Building VitePress site...');
   execSync('npm run docs:build', { stdio: 'inherit' });
 
-  // 2. Start preview server
-  console.log('🚀 Starting preview server...');
-  const server = spawn('npx', ['vitepress', 'preview', 'docs', '--port', String(PORT)], {
+  // 2. Serve the dist folder with a simple static server
+  const distPath = resolve('docs/.vitepress/dist');
+  console.log(`🚀 Starting static server on port ${PORT}...`);
+  const server = spawn('npx', ['serve', distPath, '-l', String(PORT), '--no-clipboard'], {
     stdio: 'pipe',
-    detached: false,
   });
 
-  const baseUrl = `http://localhost:${PORT}${BASE}`;
-  await waitForServer(baseUrl);
-  console.log(`✅ Server ready at ${baseUrl}`);
+  // Wait for server to be ready
+  await new Promise(resolve => setTimeout(resolve, 3000));
+  console.log(`✅ Server ready at http://localhost:${PORT}`);
 
   // 3. Launch Puppeteer
   const browser = await puppeteer.launch({
@@ -63,13 +50,18 @@ async function main() {
   const pdfBuffers = [];
 
   for (const chapter of chapters) {
-    const url = `http://localhost:${PORT}${BASE}${chapter}`;
+    const url = `http://localhost:${PORT}/hello-generic-agent/${chapter}`;
     console.log(`📄 Exporting: ${chapter}`);
     const page = await browser.newPage();
-    await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 30000 });
 
-    // Wait for images and math to render
-    await new Promise(r => setTimeout(r, 3000));
+    try {
+      await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 15000 });
+    } catch (e) {
+      console.warn(`⚠️ Timeout for ${chapter}, continuing anyway...`);
+    }
+
+    // Wait for rendering
+    await new Promise(r => setTimeout(r, 2000));
 
     // Hide sidebar and nav for cleaner PDF
     await page.addStyleTag({
@@ -83,7 +75,6 @@ async function main() {
       `,
     });
 
-    // Brief wait after style injection
     await new Promise(r => setTimeout(r, 500));
 
     const pdf = await page.pdf({
@@ -94,6 +85,7 @@ async function main() {
 
     pdfBuffers.push(pdf);
     await page.close();
+    console.log(`  ✓ Done`);
   }
 
   await browser.close();
