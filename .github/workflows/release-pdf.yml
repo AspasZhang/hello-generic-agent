@@ -18,48 +18,72 @@ jobs:
   build-pdf:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
+      - uses: actions/checkout@v4
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: npm
-
-      - name: Install dependencies
+      - name: Install pandoc and LaTeX
         run: |
-          npm ci
-          npm install puppeteer pdf-lib serve
+          sudo apt-get update
+          sudo apt-get install -y pandoc texlive-xetex texlive-fonts-recommended texlive-lang-chinese fonts-noto-cjk
 
-      - name: Install Chrome dependencies
-        run: npx puppeteer browsers install chrome
-
-      - name: Export PDF
-        run: node scripts/export-pdf.mjs
-
-      - name: Determine version
-        id: version
+      - name: Build PDF
         run: |
-          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
-            echo "tag=${{ github.event.inputs.version }}" >> $GITHUB_OUTPUT
-          else
-            echo "tag=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
-          fi
+          # Combine all chapter markdown files in order
+          CHAPTERS=(
+            docs/part1/chapter1/index.md
+            docs/part1/chapter2/index.md
+            docs/part1/chapter3/index.md
+            docs/part1/chapter4/index.md
+            docs/part1/chapter5/index.md
+            docs/part1/chapter6/index.md
+            docs/part2/chapter7/index.md
+            docs/part2/chapter8/index.md
+            docs/part2/chapter9/index.md
+            docs/part2/chapter10/index.md
+            docs/part2/chapter11/index.md
+            docs/part2/chapter12/index.md
+            docs/part2/chapter13/index.md
+            docs/part3/chapter14/index.md
+          )
+
+          # Create combined markdown with image path fixes
+          > combined.md
+          for f in "${CHAPTERS[@]}"; do
+            dir=$(dirname "$f")
+            echo "" >> combined.md
+            # Fix relative image paths
+            sed "s|images/|${dir}/images/|g" "$f" >> combined.md
+            echo "" >> combined.md
+            echo "\\newpage" >> combined.md
+          done
+
+          # Generate PDF with pandoc
+          pandoc combined.md \
+            -o hello-generic-agent.pdf \
+            --pdf-engine=xelatex \
+            -V mainfont="Noto Sans CJK SC" \
+            -V monofont="Noto Sans Mono CJK SC" \
+            -V geometry:margin=2.5cm \
+            -V colorlinks=true \
+            -V linkcolor=blue \
+            -V urlcolor=blue \
+            --highlight-style=tango \
+            -V CJKmainfont="Noto Sans CJK SC" \
+            --toc \
+            -V toc-title="目录" \
+            -V title="Hello Generic Agent 教程" \
+            -V author="Datawhale" \
+            -V date="$(date +%Y-%m-%d)" \
+            --resource-path=docs
+
+          echo "✅ PDF generated: $(ls -lh hello-generic-agent.pdf | awk '{print $5}')"
 
       - name: Create Release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: ${{ steps.version.outputs.tag }}
-          name: "Hello Generic Agent 教程 ${{ steps.version.outputs.tag }}"
+          tag_name: ${{ github.event.inputs.version || github.ref_name }}
+          name: "📖 Hello Generic Agent ${{ github.event.inputs.version || github.ref_name }}"
           body: |
-            ## 📖 Hello Generic Agent 教程 PDF 版本
-
-            从安装到原理，全面掌握以"上下文信息密度最大化"为核心的 Generic Agent。
-
-            ### 📥 下载
+            ## 📥 下载
             下载下方 `hello-generic-agent.pdf` 即可离线阅读。
 
             ### 📚 内容包含
