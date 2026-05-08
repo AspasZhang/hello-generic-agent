@@ -1,0 +1,209 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://js-reverse-mcp.local/schemas/reverse-task-input.schema.json",
+  "title": "Reverse Task Input Contract",
+  "description": "站点无关的逆向任务输入契约。仅允许脱敏种子，不包含真实敏感值。",
+  "type": "object",
+  "required": [
+    "target",
+    "request",
+    "runtime",
+    "verify"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "target": {
+      "type": "object",
+      "required": [
+        "site",
+        "entryType",
+        "entryName"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "site": {
+          "type": "string",
+          "minLength": 1,
+          "description": "站点标识，例如 jd / tiktok / xhs"
+        },
+        "scriptUrl": {
+          "type": "string",
+          "format": "uri",
+          "description": "签名脚本 URL（可选，动态抓取时可为空）"
+        },
+        "entryType": {
+          "type": "string",
+          "enum": [
+            "function",
+            "class-method",
+            "expression"
+          ],
+          "description": "签名入口类型"
+        },
+        "entryName": {
+          "type": "string",
+          "minLength": 1,
+          "description": "签名入口名称，例如 sign / ParamsSignMain.sign"
+        },
+        "signatureField": {
+          "type": "string",
+          "description": "输出签名字段名，例如 h5st / x-bogus / msToken"
+        },
+        "targetUrlPatterns": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": []
+        },
+        "targetKeywords": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": []
+        }
+      }
+    },
+    "request": {
+      "type": "object",
+      "required": [
+        "url",
+        "method",
+        "paramsTemplate"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "url": {
+          "type": "string",
+          "format": "uri"
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "GET",
+            "POST",
+            "PUT",
+            "DELETE",
+            "PATCH"
+          ]
+        },
+        "paramsTemplate": {
+          "type": "object",
+          "description": "签名前请求模板（可脱敏），仅保留结构和必要占位符"
+        },
+        "headersTemplate": {
+          "type": "object",
+          "default": {},
+          "description": "请求头模板，禁止真实 token/cookie"
+        },
+        "bodyTemplate": {
+          "description": "请求体模板（可选）"
+        }
+      }
+    },
+    "runtime": {
+      "type": "object",
+      "required": [
+        "seedMode"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "seedMode": {
+          "type": "string",
+          "enum": [
+            "none",
+            "keys-only",
+            "masked-values"
+          ],
+          "description": "运行种子模式"
+        },
+        "seedKeys": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "description": "仅键名集合。建议包含 cookies/localStorage/sessionStorage 三类键名"
+        },
+        "clock": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "mode": {
+              "type": "string",
+              "enum": [
+                "system",
+                "fixed"
+              ],
+              "default": "system"
+            },
+            "fixedNow": {
+              "type": "integer",
+              "minimum": 0
+            }
+          }
+        },
+        "environmentHints": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [],
+          "description": "环境提示，例如 requires-canvas / requires-webgl"
+        }
+      }
+    },
+    "verify": {
+      "type": "object",
+      "required": [
+        "enabled",
+        "expectStatus"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        },
+        "expectStatus": {
+          "type": "integer",
+          "minimum": 100,
+          "maximum": 599
+        },
+        "expectBodyContains": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": []
+        },
+        "maxAttempts": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 5,
+          "default": 1
+        }
+      }
+    },
+    "security": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "forbidRawSecrets": {
+          "type": "boolean",
+          "default": true
+        },
+        "forbidRawCookies": {
+          "type": "boolean",
+          "default": true
+        },
+        "forbidRawTokens": {
+          "type": "boolean",
+          "default": true
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,12 @@
+读取最热门的一个帖子或者视频的信息（包含点赞数、回复评论、弹幕等等），并总结一下，然后发表一个相关评论。
+
+具体执行约束（hello-ga case1 演示版）：
+
+1) 平台优先 B 站。我已经在 Chrome 里登录了 B 站（你可以用 web_tabs 查看现有 tab），如果当前 tab 里没有 B 站就 web_navigate 打开 https://www.bilibili.com/v/popular/all 取热门榜首。
+2) 用 web_scan + web_execute_js 拿榜首视频的：BV 号 / 标题 / UP 主 / 播放 / 三连（点赞 / 投币 / 收藏）/ 转发 / 弹幕数 / 评论数 / Top 20 热评（楼主+赞数+正文）/ 当前可见 30 条左右弹幕。落盘到 D:/GenericAgent/temp/hello_ga_p4_c1/raw_top.json。
+3) 用一个便宜的 reasoning 模型写一段 ≤300 字总结：「视频是啥 + 评论区氛围 + 弹幕在玩什么梗」，钩子+三段式，保存到 D:/GenericAgent/temp/hello_ga_p4_c1/summary.md。
+4) 起草三条候选评论（走心 / 玩梗 / 提问，每条 ≤100 字、不带 @、不挂链接、emoji ≤1），保存到 D:/GenericAgent/temp/hello_ga_p4_c1/draft_comments.md。
+5) **重要安全约束**：本次是 headless 演示，**只起草、不发送评论**。完成步骤 4 后写一份 D:/GenericAgent/temp/hello_ga_p4_c1/result.md 总结你做了哪几步、产物在哪、原本应该 ask_user 两次确认但本次跳过实际发送，然后结束本轮（ROUND END）。
+6) 整条流程不导出 cookie、不切账号、不写 cron。任何抓取失败 ≥ 2 次就在 result.md 写明原因，跳过该字段。
+
+完成后请明确告诉我：raw_top.json / summary.md / draft_comments.md / result.md 这四个文件的绝对路径。

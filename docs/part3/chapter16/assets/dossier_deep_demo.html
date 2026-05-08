@@ -1,0 +1,476 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>DOSSIER · 双面档案 — Virtual Panda / nightduck</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,500;0,700;1,400&family=JetBrains+Mono:wght@300;500;700&family=Noto+Serif+SC:wght@300;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0b0b10;--ink:#f4ecd8;--muted:#8a8478;--paper:#13131a;--rule:#2a2630;--acad:#e4b363;--acad-dim:#8a6a2e;--wild:#ff4d8d;--wild-dim:#8a2850;--cyan:#7ee8fa;--red:#ff4c3b}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--bg);color:var(--ink);font-family:"Noto Serif SC","Cormorant Garamond",serif;line-height:1.75;-webkit-font-smoothing:antialiased}
+body{background-image:radial-gradient(1200px 600px at 10% -10%,rgba(228,179,99,.08),transparent 60%),radial-gradient(1000px 600px at 110% 10%,rgba(255,77,141,.08),transparent 60%),repeating-linear-gradient(0deg,rgba(255,255,255,.012) 0 1px,transparent 1px 3px);min-height:100vh}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:100;opacity:.06;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence baseFrequency='0.9' numOctaves='2'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>")}
+.wrap{max-width:1180px;margin:0 auto;padding:64px 32px 128px}
+.mono{font-family:"JetBrains Mono","Space Mono",monospace}
+.kicker{font-family:"JetBrains Mono",monospace;font-size:12px;letter-spacing:.3em;color:var(--muted);text-transform:uppercase}
+h1,h2,h3,h4{font-family:"Cormorant Garamond","Noto Serif SC",serif;font-weight:500;letter-spacing:.01em}
+h1{font-size:clamp(48px,7vw,96px);line-height:1.02;letter-spacing:-.02em}
+h2{font-size:clamp(28px,3.5vw,44px);margin:72px 0 20px;position:relative;padding-left:28px}
+h2::before{content:"";position:absolute;left:0;top:18px;width:14px;height:14px;background:var(--acad);transform:rotate(45deg)}
+h2.wild::before{background:var(--wild)}
+h3{font-size:22px;margin:24px 0 8px;color:var(--ink)}
+p{color:#d9d1bf;font-size:16.5px}
+a{color:var(--cyan);text-decoration:none;border-bottom:1px dotted var(--cyan)}
+header{border-bottom:1px solid var(--rule);padding-bottom:28px;margin-bottom:12px;display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:16px}
+header .brand{font-family:"JetBrains Mono",monospace;font-size:13px;color:var(--muted);letter-spacing:.4em}
+header .meta{font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--muted)}
+.cover{padding:48px 0 40px;border-bottom:1px solid var(--rule);position:relative}
+.cover .stamp{position:absolute;right:0;top:48px;border:2px solid var(--red);color:var(--red);padding:10px 18px;font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.25em;transform:rotate(8deg);opacity:.85}
+.cover h1 em{font-style:italic;color:var(--acad)}
+.cover h1 em.wild{color:var(--wild)}
+.cover .sub{margin-top:20px;font-size:20px;color:var(--muted);max-width:820px;font-style:italic}
+.cover .tags{margin-top:28px;display:flex;gap:10px;flex-wrap:wrap}
+.tag{border:1px solid var(--rule);padding:6px 12px;font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--muted);letter-spacing:.1em}
+.tag.a{color:var(--acad);border-color:var(--acad-dim)}
+.tag.w{color:var(--wild);border-color:var(--wild-dim)}
+nav.toc{margin:24px 0 0;display:flex;gap:18px;flex-wrap:wrap;font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.2em;color:var(--muted)}
+nav.toc a{color:var(--muted);border:none;border-bottom:1px solid transparent;padding-bottom:2px}
+nav.toc a:hover{color:var(--ink);border-bottom-color:var(--acad)}
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:24px}
+@media (max-width:780px){.duo{grid-template-columns:1fr}}
+.card{background:var(--paper);border:1px solid var(--rule);padding:28px;position:relative;overflow:hidden}
+.card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--acad)}
+.card.wild::before{background:var(--wild)}
+.card .eyebrow{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.3em;color:var(--muted);margin-bottom:6px}
+.card h3{font-size:28px;font-style:italic;color:var(--acad)}
+.card.wild h3{color:var(--wild)}
+.card ul{list-style:none;margin-top:14px}
+.card li{padding:7px 0;border-bottom:1px dashed #252028;font-family:"JetBrains Mono",monospace;font-size:13px;color:#c8c0ad;display:flex;justify-content:space-between;gap:12px}
+.card li span.k{color:var(--muted)}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:22px}
+@media (max-width:780px){.stats{grid-template-columns:repeat(2,1fr)}}
+.stat{border:1px solid var(--rule);padding:20px;background:rgba(255,255,255,.015)}
+.stat .n{font-family:"Cormorant Garamond",serif;font-size:44px;line-height:1;color:var(--acad)}
+.stat.w .n{color:var(--wild)}
+.stat .l{font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--muted);letter-spacing:.18em;margin-top:8px;text-transform:uppercase}
+table{width:100%;border-collapse:collapse;margin-top:16px;font-family:"JetBrains Mono",monospace;font-size:13px}
+th,td{text-align:left;padding:10px 8px;border-bottom:1px dashed #252028}
+th{color:var(--muted);font-weight:500;letter-spacing:.2em;text-transform:uppercase;font-size:11px}
+td.num{text-align:right;color:var(--acad);font-variant-numeric:tabular-nums}
+td.wnum{text-align:right;color:var(--wild)}
+tr:hover td{background:rgba(255,255,255,.02)}
+.bars{margin-top:22px}
+.bar{display:grid;grid-template-columns:200px 1fr 60px;gap:14px;align-items:center;padding:6px 0;font-family:"JetBrains Mono",monospace;font-size:12px}
+.bar .n{color:#d9d1bf;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.bar .v{height:10px;background:linear-gradient(90deg,var(--acad),var(--wild));position:relative}
+.bar .v::after{content:"";position:absolute;right:-4px;top:-3px;width:4px;height:16px;background:var(--ink);opacity:.4}
+.bar .s{color:var(--muted);text-align:right}
+.radar-wrap{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:center;margin-top:28px}
+@media (max-width:780px){.radar-wrap{grid-template-columns:1fr}}
+.radar-wrap p{font-size:16px;color:#c8c0ad}
+svg.radar{display:block;width:100%;max-width:480px;margin:0 auto;overflow:visible}
+.tl{position:relative;margin-top:30px;padding-left:32px;border-left:1px dashed var(--rule)}
+.tl .ev{position:relative;padding:8px 0 22px 14px}
+.tl .ev::before{content:"";position:absolute;left:-39px;top:16px;width:11px;height:11px;background:var(--bg);border:2px solid var(--acad);border-radius:50%}
+.tl .ev.w::before{border-color:var(--wild)}
+.tl .ev .d{font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--muted);letter-spacing:.18em}
+.tl .ev .t{font-size:18px;color:var(--ink);font-family:"Noto Serif SC",serif;margin-top:4px}
+.tl .ev .m{font-size:14px;color:#b8b0a0;margin-top:4px}
+blockquote{border-left:3px solid var(--acad);padding:18px 24px;margin:28px 0;background:rgba(228,179,99,.04);font-style:italic;font-family:"Cormorant Garamond",serif;font-size:22px;color:#ece3cf}
+blockquote.w{border-color:var(--wild);background:rgba(255,77,141,.04)}
+blockquote::before{content:"\201C";font-size:56px;float:left;line-height:.5;margin-right:10px;color:var(--acad);font-family:Georgia,serif;opacity:.5;padding-top:18px}
+blockquote.w::before{color:var(--wild)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.chip{font-family:"JetBrains Mono",monospace;font-size:12px;padding:5px 10px;border:1px solid var(--rule);color:#c8c0ad;border-radius:2px;background:rgba(255,255,255,.02)}
+.chip.hot{color:var(--wild);border-color:var(--wild-dim)}
+.chip.gold{color:var(--acad);border-color:var(--acad-dim)}
+.twocol{columns:2;column-gap:42px;margin-top:14px}
+@media (max-width:780px){.twocol{columns:1}}
+.twocol p{break-inside:avoid;margin-bottom:14px}
+footer{margin-top:96px;padding-top:28px;border-top:1px solid var(--rule);color:var(--muted);font-family:"JetBrains Mono",monospace;font-size:11px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;letter-spacing:.15em}
+.reveal{opacity:0;transform:translateY(14px);transition:opacity .8s ease,transform .8s ease}
+.reveal.in{opacity:1;transform:none}
+.split{display:grid;grid-template-columns:1.2fr 1fr;gap:32px;margin-top:20px}
+@media (max-width:780px){.split{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="brand">◆ PERSONALITY DOSSIER · 全域社交画像</div>
+  <div class="meta">CASE# 2026-04-25 · DEMO · FICTIONAL · NOT A REAL PERSON</div>
+</header>
+
+<section class="cover">
+  <div class="stamp">⟡ DUAL-IDENTITY</div>
+  <div class="kicker">DOSSIER · VOL I</div>
+  <h1>白天是 <em>Virtual Panda</em>,<br/>晚上是一只 <em class="wild">nightduck 鸭</em>。</h1>
+  <p class="sub">117 个 GitHub 仓库、2607 个 LinuxDo 点赞、90 小时社区潜水、29 个 B 站粉丝、一张 AnimeArtist01 真爱粉卡片——共同绘制出一个某 R1 高校 PhD 在严肃学术与江湖玩梗之间的双频电波。</p>
+  <div class="tags">
+    <span class="tag">SUBJECT · Virtual Panda / nightduck</span>
+    <span class="tag a">ACADEMIA · LLM Agent / DeepResearch</span>
+    <span class="tag w">WILD · 开发调优 / 搞七捻三 / 福利羊毛</span>
+    <span class="tag">N=6 platforms</span>
+    <span class="tag">MBTI≈ INTP-A</span>
+  </div>
+  <nav class="toc">
+    <a href="#identity">01 身份矩阵</a>
+    <a href="#academia">02 学术线</a>
+    <a href="#wild">03 江湖线</a>
+    <a href="#personality">04 性格雷达</a>
+    <a href="#timeline">05 创作时间线</a>
+    <a href="#values">06 价值观</a>
+    <a href="#blindspot">07 盲区&建议</a>
+    <a href="#verdict">08 一页判读</a>
+  </nav>
+</section><h2 id="identity">01 · 身份矩阵</h2>
+<p class="reveal">探测到 <strong style="color:var(--acad)">6 个活跃平台</strong>、<strong style="color:var(--wild)">7 个未使用或未登录平台</strong>，呈现出清晰的双账号分化结构——严肃实名与匿名玩梗互不渗透。</p>
+
+<div class="duo">
+  <div class="card reveal">
+    <div class="eyebrow">PERSONA A · 学术线</div>
+    <h3>Virtual Panda</h3>
+    <p style="font-size:15px;color:#b8b0a0;margin:6px 0 8px">某 R1 高校博士 · Datawhale 成员 · LLM Agent &amp; DeepResearch Evaluation。</p>
+    <ul>
+      <li><span class="k">GitHub</span><span>virtual-panda · 117 repos · 96 followers</span></li>
+      <li><span class="k">知乎</span><span>virtual-panda · 521 赞 · 115 感谢</span></li>
+      <li><span class="k">X / Twitter</span><span>VPResearch · 2026-04 新建</span></li>
+      <li><span class="k">Bio</span><span>"PhD in Sample Univ · LLM Agent"</span></li>
+      <li><span class="k">风格</span><span>严肃 · 论文 · 教学 · 实名</span></li>
+    </ul>
+  </div>
+  <div class="card wild reveal">
+    <div class="eyebrow">PERSONA B · 江湖线</div>
+    <h3>nightduck / 夜鸭子</h3>
+    <p style="font-size:15px;color:#b8b0a0;margin:6px 0 8px">技术社区布道者 · 薅羊毛爱好者 · 二次元轻度患者。"非典型"自嘲 ID。</p>
+    <ul>
+      <li><span class="k">LinuxDo</span><span>nightduck_23 · 43 topic / 383 post / 2607 ❤</span></li>
+      <li><span class="k">B站</span><span>100000000 · 29 粉 / 531 关 / 12 动态</span></li>
+      <li><span class="k">抖音</span><span>nightduck23 · 已登录 · API 玩家</span></li>
+      <li><span class="k">Bio</span><span>"真爱粉 #999000 AnimeArtist01 [龙年][龙年]"</span></li>
+      <li><span class="k">风格</span><span>emoji · 教程 · 福利 · 玩梗</span></li>
+    </ul>
+  </div>
+</div>
+
+<div class="stats">
+  <div class="stat reveal"><div class="n">117</div><div class="l">GitHub Repos</div></div>
+  <div class="stat w reveal"><div class="n">2 607</div><div class="l">LinuxDo ❤ Received</div></div>
+  <div class="stat reveal"><div class="n">521</div><div class="l">Zhihu Upvotes</div></div>
+  <div class="stat w reveal"><div class="n">90.2h</div><div class="l">LinuxDo Read Time</div></div>
+  <div class="stat reveal"><div class="n">96</div><div class="l">GH Followers</div></div>
+  <div class="stat w reveal"><div class="n">46 301</div><div class="l">Posts Read</div></div>
+  <div class="stat reveal"><div class="n">1 027</div><div class="l">Top Post ❤</div></div>
+  <div class="stat w reveal"><div class="n">55</div><div class="l">Active Days (90d)</div></div>
+</div>
+
+<h2 id="academia">02 · 学术线档案 — <em style="color:var(--acad);font-style:italic">virtual-panda</em></h2>
+
+<p class="reveal">5 年码龄，117 个仓库横跨 <strong>LLM Agent · 验证码服务 · 古诗词生成 · 课程 wiki · API 2api 桥接层</strong>。他不是"写论文的人"，而是"写工具给社区用"的人。</p>
+
+<blockquote class="reveal">I'm a PhD in A Tier-1 University, member of Datawhale. My research interests lie at LLM Agent and DeepResearch Evaluation.</blockquote>
+
+<h3 style="margin-top:28px">🏆 代表作 · 按 Star 排</h3>
+<div class="bars reveal">
+  <div class="bar"><div class="n">mycaptcha-svc</div><div class="v" style="width:100%"></div><div class="s">700⭐</div></div>
+  <div class="bar"><div class="n">openpaw-agents</div><div class="v" style="width:57.8%"></div><div class="s">405⭐</div></div>
+  <div class="bar"><div class="n">WiKi-for-Sufe-Courses</div><div class="v" style="width:6.1%"></div><div class="s">43⭐</div></div>
+  <div class="bar"><div class="n">CS224W-Fall2021</div><div class="v" style="width:4.4%"></div><div class="s">31⭐</div></div>
+  <div class="bar"><div class="n">Transformer (Datawhale)</div><div class="v" style="width:2.5%"></div><div class="s">18⭐</div></div>
+  <div class="bar"><div class="n">openpaw-academic-radar</div><div class="v" style="width:2.0%"></div><div class="s">14⭐</div></div>
+  <div class="bar"><div class="n">2021_computer_design · 古诗 AI</div><div class="v" style="width:1.1%"></div><div class="s">8⭐</div></div>
+  <div class="bar"><div class="n">GenericAgent · 种子</div><div class="v" style="width:0.3%"></div><div class="s">0⭐</div></div>
+</div>
+
+<div class="split" style="margin-top:36px">
+  <div>
+    <h3>🧪 近 42 次公开事件分布（90d）</h3>
+    <div class="bars reveal">
+      <div class="bar"><div class="n">Watch · 收藏</div><div class="v" style="width:100%"></div><div class="s">19</div></div>
+      <div class="bar"><div class="n">PullRequest</div><div class="v" style="width:63%"></div><div class="s">12</div></div>
+      <div class="bar"><div class="n">Fork</div><div class="v" style="width:32%"></div><div class="s">6</div></div>
+      <div class="bar"><div class="n">IssueComment</div><div class="v" style="width:21%"></div><div class="s">4</div></div>
+      <div class="bar"><div class="n">Issue</div><div class="v" style="width:5%"></div><div class="s">1</div></div>
+    </div>
+    <p style="margin-top:16px;font-size:14px;color:#a8a090"><em>特征：Watch &gt; PR &gt; Fork。典型"雷达型"研究者——先大量扫描前沿，再精准 PR 贡献。</em></p>
+  </div>
+  <div>
+    <h3>🧵 仓库主题词云</h3>
+    <div class="chips reveal">
+      <span class="chip gold">llm-agent</span><span class="chip gold">deep-research</span>
+      <span class="chip">captcha</span><span class="chip">2api</span><span class="chip">api-bridge</span>
+      <span class="chip">datawhale</span><span class="chip">transformer</span>
+      <span class="chip">cs224w</span><span class="chip">fudan</span><span class="chip">sufe</span>
+      <span class="chip">cursor2api</span><span class="chip">gcli2api</span><span class="chip">anyrouter</span>
+      <span class="chip">academic-radar</span><span class="chip">ohmyapi</span>
+      <span class="chip hot">huggingface</span><span class="chip hot">supabase</span>
+      <span class="chip hot">openpaw</span><span class="chip hot">GenericAgent</span>
+      <span class="chip">wechat-poem</span><span class="chip">seq2seq</span>
+      <span class="chip">fastapi</span><span class="chip">playwright</span>
+    </div>
+    <p style="margin-top:16px;font-size:14px;color:#a8a090"><em>核心主题密度：LLM × 自动化 × 绕过限制 × 教学普惠。</em></p>
+  </div>
+</div>
+
+<h3 style="margin-top:40px">📚 知乎 virtual-panda · 输出姿态</h3>
+<div class="split">
+  <div>
+    <p>10 个回答 + 10 篇文章，总赞数 <strong style="color:var(--acad)">521</strong>、感谢 115——典型 <em>质胜量</em> 型输出者。</p>
+    <p style="margin-top:10px">议题聚焦：<strong>Git 图形客户端、Swin Transformer（ICCV 2021 Best Paper）、CV 工程化</strong>——说明其阅读兴趣长期稳定锚定 "CS 工程 + 顶会顶刊"。</p>
+    <p style="margin-top:10px;color:var(--muted);font-style:italic">知乎在他的体系里更像"正式的技术博客外延"而非社交场。</p>
+  </div>
+  <div>
+    <table>
+      <tr><th>指标</th><th style="text-align:right">值</th></tr>
+      <tr><td>回答</td><td class="num">10</td></tr>
+      <tr><td>文章</td><td class="num">10</td></tr>
+      <tr><td>累计获赞</td><td class="num">521</td></tr>
+      <tr><td>收到感谢</td><td class="num">115</td></tr>
+      <tr><td>平均每答获赞</td><td class="num">≈ 52</td></tr>
+      <tr><td>话题密度</td><td class="num">CS/AI 纯集中</td></tr>
+    </table>
+  </div>
+</div><h2 id="wild" class="wild">03 · 江湖线档案 — <em style="color:var(--wild);font-style:italic">nightduck_23 / 夜鸭子</em></h2>
+
+<p class="reveal">LinuxDo 是 nightduck 的主场——<strong style="color:var(--wild)">90.2 小时阅读时长 / 46 301 已读帖 / 55 天在线</strong>，他像一只在社区深水区潜水的鸭子，时不时浮出水面丢一张"流程全图文保姆级教程"然后收获 1000+ 赞。</p>
+
+<h3 style="margin-top:28px">🔥 Top 自创主题 · 按热度</h3>
+<table class="reveal">
+  <tr><th style="width:56%">标题</th><th>❤</th><th>💬</th><th>👀</th></tr>
+  <tr><td>GenericAgent——某团队研发 ｜ 仅 ~3K 行 Self-Evolving Agent</td><td class="wnum">1 027</td><td class="wnum">252</td><td class="wnum">7 160</td></tr>
+  <tr><td>🚀 完全免费！HuggingFace + Supabase 部署 CLIProxyAPI 全流程图文</td><td class="wnum">359</td><td class="wnum">137</td><td class="wnum">4 044</td></tr>
+  <tr><td>✨ GenericAgent 实战 ｜ 逆向 DY + TG/X 全链路</td><td class="wnum">81</td><td class="wnum">28</td><td class="wnum">797</td></tr>
+  <tr><td>💥 成功开通 4 个 Claude Code Max 5x</td><td class="wnum">66</td><td class="wnum">39</td><td class="wnum">1 748</td></tr>
+  <tr><td>✨ GenericAgent 实战 ｜ 天才消息官 + 天才交易员</td><td class="wnum">37</td><td class="wnum">15</td><td class="wnum">528</td></tr>
+  <tr><td>🔥 GenericAgent ｜ GPT-Image 2api 开箱即用</td><td class="wnum">22</td><td class="wnum">6</td><td class="wnum">498</td></tr>
+</table>
+
+<div class="split" style="margin-top:28px">
+  <div>
+    <h3>🎭 主题关键词云</h3>
+    <div class="chips reveal">
+      <span class="chip hot">GenericAgent</span>
+      <span class="chip hot">自演化 Agent</span>
+      <span class="chip hot">2api 兼容层</span>
+      <span class="chip">CLIProxyAPI</span>
+      <span class="chip">HuggingFace</span>
+      <span class="chip">Supabase</span>
+      <span class="chip">Claude Code Max</span>
+      <span class="chip">Haiku</span>
+      <span class="chip">GPT-Image</span>
+      <span class="chip">TG / X 逆向</span>
+      <span class="chip">抖音 API</span>
+      <span class="chip gold">图文教程</span>
+      <span class="chip gold">保姆级</span>
+      <span class="chip">福利 · 薅羊毛</span>
+      <span class="chip">天才消息官</span>
+      <span class="chip">天才交易员</span>
+    </div>
+    <p style="margin-top:14px;font-size:14px;color:#a8a090"><em>话题粘性：GenericAgent 系列作为"个人 IP 主线"贯穿始终，其他主题围绕它辐射。</em></p>
+  </div>
+  <div>
+    <h3>🎬 B 站 · 潜水围观型</h3>
+    <table>
+      <tr><th>指标</th><th style="text-align:right">值</th></tr>
+      <tr><td>关注</td><td class="wnum">531</td></tr>
+      <tr><td>粉丝</td><td class="wnum">29</td></tr>
+      <tr><td>动态</td><td class="wnum">12</td></tr>
+      <tr><td>动态类型</td><td class="wnum">转发 &gt;&gt; 原创</td></tr>
+      <tr><td>关键符号</td><td class="wnum">[龙年] / AnimeArtist01</td></tr>
+      <tr><td>真爱粉编号</td><td class="wnum">#235 830</td></tr>
+    </table>
+    <p style="margin-top:12px;font-size:14px;color:#a8a090"><em>B 站给了 nightduck 一个完全关掉"生产模式"的避风港——在这里他只消费、偶尔转发龙年表情，像个普通网友。</em></p>
+  </div>
+</div>
+
+<h3 style="margin-top:36px">📊 LinuxDo · 社区能量画像</h3>
+<div class="bars reveal" style="max-width:820px">
+  <div class="bar"><div class="n">收到赞 (Received)</div><div class="v" style="width:100%"></div><div class="s">2 607</div></div>
+  <div class="bar"><div class="n">已读帖</div><div class="v" style="width:100%"></div><div class="s">46 301</div></div>
+  <div class="bar"><div class="n">给出赞 (Given)</div><div class="v" style="width:8.5%"></div><div class="s">223</div></div>
+  <div class="bar"><div class="n">回帖</div><div class="v" style="width:14.7%"></div><div class="s">383</div></div>
+  <div class="bar"><div class="n">主题 (Topics)</div><div class="v" style="width:1.6%"></div><div class="s">43</div></div>
+</div>
+<p class="reveal" style="margin-top:16px;font-size:15px;color:#b8b0a0"><em>关键比率：收到赞 / 给出赞 ≈ <strong style="color:var(--wild)">11.7 : 1</strong>——内容输出者画像；已读 / 发帖 ≈ <strong>108 : 1</strong>——极重度阅读者，发言前消化充分。</em></p>
+
+<blockquote class="w reveal">GenericAgent——某团队研发 ｜ 仅 ~3K 行代码 Self-Evolving Agent<br/><span style="font-size:15px;font-style:normal;color:var(--muted)">— 一条帖拿下 1 027 ❤ / 7 160 👀，奠定"学术可信 + 社区亲和"的双重声量</span></blockquote>
+
+<h2 id="personality">04 · 性格雷达 · BIG-FIVE</h2>
+<div class="radar-wrap">
+  <svg class="radar" viewBox="-250 -250 500 500" aria-label="Big Five Radar">
+    <!-- grid -->
+    <g fill="none" stroke="#2a2630" stroke-width="1">
+      <polygon points="0,-200 190,-62 117,162 -117,162 -190,-62"/>
+      <polygon points="0,-160 152,-50 94,130 -94,130 -152,-50"/>
+      <polygon points="0,-120 114,-37 70,97 -70,97 -114,-37"/>
+      <polygon points="0,-80 76,-25 47,65 -47,65 -76,-25"/>
+      <polygon points="0,-40 38,-12 23,32 -23,32 -38,-12"/>
+    </g>
+    <!-- axes -->
+    <g stroke="#3a3340" stroke-width="1">
+      <line x1="0" y1="0" x2="0" y2="-200"/>
+      <line x1="0" y1="0" x2="190" y2="-62"/>
+      <line x1="0" y1="0" x2="117" y2="162"/>
+      <line x1="0" y1="0" x2="-117" y2="162"/>
+      <line x1="0" y1="0" x2="-190" y2="-62"/>
+    </g>
+    <!-- data: O=9 C=8 E=6 A=7 N=3 (半径=分值*20) -->
+    <polygon points="0,-180 152,-49 78,108 -82,114 -114,-37"
+             fill="rgba(228,179,99,0.22)" stroke="#e4b363" stroke-width="2"/>
+    <g fill="#e4b363">
+      <circle cx="0" cy="-180" r="4"/>
+      <circle cx="152" cy="-49" r="4"/>
+      <circle cx="78" cy="108" r="4"/>
+      <circle cx="-82" cy="114" r="4"/>
+      <circle cx="-114" cy="-37" r="4"/>
+    </g>
+    <!-- labels -->
+    <g font-family="JetBrains Mono, monospace" font-size="13" fill="#f4ecd8" text-anchor="middle">
+      <text x="0" y="-218">开放性 · 9</text>
+      <text x="215" y="-65">尽责性 · 8</text>
+      <text x="135" y="185">外向性 · 6</text>
+      <text x="-135" y="185">宜人性 · 7</text>
+      <text x="-215" y="-65">神经质 · 3</text>
+    </g>
+  </svg>
+  <div>
+    <h3>📖 解读</h3>
+    <p><strong style="color:var(--acad)">开放性 9/10</strong> — 从古诗 AI 小程序到 LLM Agent 再到 Self-Evolving Agent，117 个仓库几乎没有两个做完全相同的事，跨域探索欲明显高于均值。</p>
+    <p style="margin-top:10px"><strong style="color:var(--acad)">尽责性 8/10</strong> — GenericAgent 主线持续迭代、教程图文从"前置条件"到"截图验证"一步不缺。</p>
+    <p style="margin-top:10px"><strong style="color:var(--acad)">外向性 6/10</strong> — 不是朋友圈意义上的外向，而是"以作品为社交载体"的工程师式外向：LinuxDo 高密度发帖，但知乎/B 站以质胜量，X 留白。</p>
+    <p style="margin-top:10px"><strong style="color:var(--acad)">宜人性 7/10</strong> — Datawhale 长期贡献、本校学弟学妹 Wiki、详尽免费部署教程——"造轮子最好是让别人也能免费用"。</p>
+    <p style="margin-top:10px"><strong style="color:var(--acad)">神经质 3/10</strong> — 帖子全程 🚀✨🔥💥 阳光语气，零情绪宣泄贴；即使发"Haiku 无法调用"也是解决方案导向。</p>
+    <p style="margin-top:14px;font-style:italic;color:var(--muted)">MBTI 最近邻：<strong style="color:var(--acad)">INTP-A</strong>（含明显 ENTP/INTJ 边缘），Enneagram 最近邻：<strong style="color:var(--acad)">5w6</strong> — 知识储备型 + 安全寻求。</p>
+  </div>
+</div>
+
+<h2 id="timeline">05 · 创作时间线（精选）</h2>
+<div class="tl">
+  <div class="ev reveal">
+    <div class="d">2020 · MAY</div>
+    <div class="t">GitHub 账号 <em>virtual-panda</em> 诞生</div>
+    <div class="m">从本科后期进入严肃开源阶段——5 年持续产出的起点。</div>
+  </div>
+  <div class="ev reveal">
+    <div class="d">2021 · 本科</div>
+    <div class="t">古诗词 Seq2Seq 微信小程序 · 本校课程 Wiki</div>
+    <div class="m">第一次尝试"AI + 产品化"组合 + 第一次做对后来者友好的教学工具——利他主义底色已现。</div>
+  </div>
+  <div class="ev reveal">
+    <div class="d">2021 · FALL</div>
+    <div class="t">CS224W 图神经网络学习笔记（31⭐）</div>
+    <div class="m">公开自己的学习路径，从消费者转为"学习路径设计者"。</div>
+  </div>
+  <div class="ev reveal">
+    <div class="d">2022 · 博士入学</div>
+    <div class="t">Datawhale 贡献者 · Transformer 系列教程</div>
+    <div class="m">身份升级为"社区教师"——后续所有技术布道风格都来源于此。</div>
+  </div>
+  <div class="ev w reveal">
+    <div class="d">2024 · JAN</div>
+    <div class="t">B 站动态开始活跃 · AnimeArtist01 真爱粉卡片</div>
+    <div class="m">"nightduck"人格开始在匿名空间浮出水面——二次元/龙年玩梗/自嘲 ID。</div>
+  </div>
+  <div class="ev w reveal">
+    <div class="d">2025 · Q1</div>
+    <div class="t">LinuxDo 高强度入驻 · 福利/羊毛/教程三板斧</div>
+    <div class="m">90 小时阅读 → 46K 已读 → 2607 赞，形成典型"潜水半年→爆发输出"路径。</div>
+  </div>
+  <div class="ev reveal">
+    <div class="d">2025 · Q4</div>
+    <div class="t">mycaptcha-svc 700⭐ · openpaw-agents 405⭐</div>
+    <div class="m">首次在 GitHub 收获真正意义上的"千级关注产品"——从写教程升级为做基础设施。</div>
+  </div>
+  <div class="ev w reveal">
+    <div class="d">2026 · 早期</div>
+    <div class="t">GenericAgent 种子发布 · LinuxDo 1 027 ❤ 爆款</div>
+    <div class="m">把学术身份（"某团队研发"）与江湖身份（"~3K 行代码"）第一次绑定发声，两条人格开始破壁。</div>
+  </div>
+  <div class="ev reveal">
+    <div class="d">2026 · APR</div>
+    <div class="t">X @VPResearch 开号 · Bio: "AI Research"</div>
+    <div class="m">开始布局海外学术社交——当前 0 推文，是下一阶段的战略空白。</div>
+  </div>
+</div><h2 id="values">06 · 价值观 &amp; 动机解码</h2>
+<div class="twocol reveal">
+<p><strong style="color:var(--acad)">① 效率与自由</strong> — 高频做 2api / 桥接 / 绕开限速 / 一键部署，痛点驱动。每次官方限制收紧，他就去写一个对应的 Proxy。"工具应该为人服务，而不是反过来"。</p>
+<p><strong style="color:var(--acad)">② 教育普惠</strong> — Datawhale 长期成员、本校课程 Wiki、CS224W 路线公开。明知可商业化的内容也免费——这是他和单纯的"开源工具党"的本质区别。</p>
+<p><strong style="color:var(--acad)">③ 工程美学</strong> — 关心 Star、关心部署体验、追求"~3K 行代码 self-evolving"这种**克制中见功力**的表达。代码量少 ≠ 简陋，而是 ≠ 冗余。</p>
+<p><strong style="color:var(--wild)">④ 羊毛精神</strong> — LinuxDo 福利板块高频出没，享受"在规则缝隙里整理出秩序"的快感。这不是贪小便宜，而是<em>对规则的逆向工程乐趣</em>。</p>
+<p><strong style="color:var(--wild)">⑤ 轻度二次元</strong> — B 站 AnimeArtist01 真爱粉卡 + ID "鸭" + "非典型" 自嘲。匿名空间里允许自己幼稚一点。</p>
+<p><strong style="color:var(--wild)">⑥ 双线人格</strong> — 实名"Virtual Panda"严肃挂 PhD 与论文方向；匿名"nightduck"放飞玩梗。这是非常健康的<strong>身份隔离</strong>——既保住学术圈面子，也保留普通网友的快乐。</p>
+</div>
+
+<h3 style="margin-top:32px">🗣 表达风格指纹</h3>
+<div class="chips reveal">
+  <span class="chip gold">结构化标题：emoji 分类 (🚀部署/✨实战/💥成果/🔥发布/🎉教学)</span>
+  <span class="chip gold">图文并茂：教程从前置→部署→截图全闭环</span>
+  <span class="chip">谦实结合：README 卖萌 🤪😜🐳，内容硬核</span>
+  <span class="chip hot">代码即语言：知乎 10 答 vs GitHub 117 仓库</span>
+  <span class="chip hot">情绪零负向：90 小时阅读没看到一条吐槽贴</span>
+  <span class="chip">叙事偏好：「保姆级」「一键」「免费」「全流程」</span>
+</div>
+
+<h2 id="blindspot">07 · 战略盲区 &amp; 升级建议</h2>
+<div class="duo">
+  <div class="card reveal">
+    <div class="eyebrow">⚠️ BLINDSPOTS · 当前盲区</div>
+    <h3 style="color:var(--red)">三道未完成的拼图</h3>
+    <ul>
+      <li><span class="k">B1 · 跨平台割裂</span><span>学术/江湖未串联</span></li>
+      <li><span class="k">B2 · X 几乎空白</span><span>0 推文 / 0 followers</span></li>
+      <li><span class="k">B3 · 国际曝光低</span><span>无英文写作</span></li>
+      <li><span class="k">B4 · 微博/小红书/豆瓣 0</span><span>放弃中文非技术圈</span></li>
+      <li><span class="k">B5 · B 站投稿 0</span><span>视频生态消费 &gt;&gt; 创作</span></li>
+      <li><span class="k">B6 · 个人品牌未沉淀</span><span>无独立站/Newsletter</span></li>
+    </ul>
+  </div>
+  <div class="card wild reveal">
+    <div class="eyebrow">✦ NEXT MOVES · 升级动作</div>
+    <h3 style="color:var(--cyan)">从"作品集"到"个人品牌"</h3>
+    <ul>
+      <li><span class="k">M1 · X 启动</span><span>每周 3 推文 · 复述 GitHub 进展</span></li>
+      <li><span class="k">M2 · 英文 README</span><span>重点 repo 双语化</span></li>
+      <li><span class="k">M3 · B 站投稿</span><span>GenericAgent 5 分钟系列</span></li>
+      <li><span class="k">M4 · 知乎专栏化</span><span>每月 1 篇深度长文</span></li>
+      <li><span class="k">M5 · 个人主页</span><span>聚合 papers + repos + 教程</span></li>
+      <li><span class="k">M6 · 双身份桥接</span><span>"某 R1 高校 PhD nightduck" 单一叙事</span></li>
+    </ul>
+  </div>
+</div>
+
+<h2 id="verdict">08 · 一页判读 / VERDICT</h2>
+
+<blockquote class="reveal">白天某 R1 高校 PhD 写 LLM Agent 评测的 Virtual Panda，晚上化身 LinuxDo 上一只发教程薅羊毛的 nightduck 鸭——用 117 个 GitHub 仓库、3K 行 Self-Evolving Agent、90 小时社区潜水时长，把"造轮子"变成自我表达。<br/><br/>他不是话最多的人，但每一次开口几乎都能让一群人省下半小时配置时间。<br/><br/>这是一个用<em>"作品 ≫ 言论"</em>方式社交的工程师——而他真正缺的，不是更多代码，是一座把所有作品串起来的<em>个人品牌叙事桥</em>。</blockquote>
+
+<div class="stats" style="margin-top:24px">
+  <div class="stat reveal"><div class="n" style="font-size:32px">PhD</div><div class="l">A Tier-1 University</div></div>
+  <div class="stat w reveal"><div class="n" style="font-size:32px">INTP-A</div><div class="l">MBTI Estimate</div></div>
+  <div class="stat reveal"><div class="n" style="font-size:32px">Maker</div><div class="l">Identity Core</div></div>
+  <div class="stat w reveal"><div class="n" style="font-size:32px">Builder</div><div class="l">Community Role</div></div>
+  <div class="stat reveal"><div class="n" style="font-size:32px">5w6</div><div class="l">Enneagram</div></div>
+  <div class="stat w reveal"><div class="n" style="font-size:32px">🦆</div><div class="l">Spirit Animal</div></div>
+  <div class="stat reveal"><div class="n" style="font-size:32px">Open</div><div class="l">Source Spirit</div></div>
+  <div class="stat w reveal"><div class="n" style="font-size:32px">3K</div><div class="l">Lines / Self-Evolve</div></div>
+</div>
+
+<footer>
+  <div>SOURCES · GitHub API · Zhihu Web API · LinuxDo Discourse API · Bilibili Dynamic API · X DOM</div>
+  <div>GENERATED · 2026-04-25 · DOSSIER VOL.I · END</div>
+</footer>
+
+</div>
+
+<script>
+(function(){
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
+  },{threshold:0.12});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+})();
+</script>
+</body>
+</html>

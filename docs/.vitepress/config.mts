@@ -68,6 +68,9 @@ export default defineConfig({
         text: 'Part 3：实战篇',
         items: [
           { text: 'Case 1：自动在社交软件上发消息', link: '/part3/chapter14/' },
+          { text: 'Case 2：登录态围观热榜 + 礼貌评论', link: '/part3/chapter15/' },
+          { text: 'Case 3：自我探寻 · 全网社交画像', link: '/part3/chapter16/' },
+          { text: 'Case 4：登录态视频离线 · 飞机上看一部番', link: '/part3/chapter17/' },
         ]
       }
     ],
