@@ -12,6 +12,9 @@ export default defineConfig({
   title: "Datawhale开源教程",
   description: "AI前沿知识开源教程",
   base: baseConfig,
+  ignoreDeadLinks: [
+    /\.py$/,
+  ],
   markdown: {
     math: true
   },
