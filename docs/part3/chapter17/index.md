@@ -371,4 +371,4 @@ GA 会自动把「`qn=120` + `fnval=4048` 组合 / 双层 ThreadPool / 8MB chunk
 - **链路一图** + **12 条踩过的避坑** + **凭证 / 工具索引** + **实战参考**
 - 末尾附**完整的「润色后 prompt」**——把全部约束写明，直接复制粘贴给 GA。
 
-如果遇到 wbi_sign 真的拦住的反爬场景（本 case 没用上但作为兜底），去看 [`sop/js-reverse/SKILL.md`](./sop/js-reverse/SKILL.md)——6 阶段协议（Observe → Capture → Rebuild → Patch → Extract → Port）反推签名链路。
+如果遇到 wbi_sign 真的拦住的反爬场景（本 case 没用上但作为兜底），去看 [`sop/js-reverse/SKILL.md`](./sop/js-reverse/)——6 阶段协议（Observe → Capture → Rebuild → Patch → Extract → Port）反推签名链路。

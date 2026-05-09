@@ -3,7 +3,7 @@
 > 通用工具（`web_scan` / `web_execute_js` / `web_tabs` / `web_cdp`）是 GA 默认能力，
 > 不在本目录单独建卡——见 `case2-social-persona-self/index.md` 的「用到的能力」段。
 >
-> HTML 视觉走 GA 主仓的 [`memory/frontend-design/SKILL.md`](file:///D:/GenericAgent/memory/frontend-design/SKILL.md)
+> HTML 视觉走 GA 主仓的 [`memory/frontend-design/SKILL.md`](./frontend-design/)
 > ——本 case 不重新打包，直接引用。
 
 ---

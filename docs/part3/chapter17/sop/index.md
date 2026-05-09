@@ -3,7 +3,7 @@
 > 通用工具（`web_scan` / `web_execute_js` / `web_tabs`）是 GA 默认能力，
 > 不在本目录单独建卡——见 `case3-bili-bangumi-download/index.md` 的「用到的能力」段。
 >
-> 反爬兜底走 GA 主仓的 [`memory/js-reverse/SKILL.md`](file:///D:/GenericAgent/memory/js-reverse/SKILL.md)
+> 反爬兜底走 GA 主仓的 [`memory/js-reverse/SKILL.md`](./js-reverse/)
 > ——本 case 不重新打包，直接引用（且本案没用上）。
 
 ---
