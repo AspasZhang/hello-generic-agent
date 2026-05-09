@@ -93,6 +93,26 @@ pip install streamlit pywebview
 
 GA 需要连接大模型才能工作。我们通过 `mykey.py` 告诉它用哪个模型、怎么连。
 
+
+
+### 方法一：根据引导配置（推荐新手）
+
+打开终端，进入项目目录(运行以下命令)，根据引导一步步配置：
+
+```bash
+# 1. cd 到项目目录
+cd "你的GenericAgent路径"
+
+# 2. 启动
+python assets/configure_mykey.py
+
+# 3.根据引导一步步配置
+
+```
+
+
+### 方法二：手动配置mykey（完整说明）
+
 > ### 🔰 mykey 配置最简流程（5 步搞定）
 >
 > 如果你是第一次接触，只需要跟着下面 5 步做：
@@ -166,7 +186,8 @@ mixin_config = {
 
 > 每次启动GA默认读的是第一个api信息。可以点击设置切换。
 
-📋 所有内置渠道一览（点击展开）
+<details>
+<summary><strong>📋 所有内置渠道一览</strong></summary>
 
 #### 一线直连渠道（填 apikey / apibase 即用）
 
@@ -202,7 +223,10 @@ mixin_config = {
 | vLLM      | native_oai_vllm     | `http://127.0.0.1:8000/v1`  | 你 load 的模型 id | 需支持 function calling |
 | LM Studio | oai_config_lmstudio | `http://localhost:1234/v1`  | LM Studio 模型 id | GUI 本地部署最省心      |
 
-⚙️ 关键可调字段速查（点击展开）
+</details>
+
+<details>
+<summary><strong>⚙️ 关键可调字段速查</strong></summary>
 
 | 字段                   | 默认             | 作用                             | 何时要改                                                 |
 | ---------------------- | ---------------- | -------------------------------- | -------------------------------------------------------- |
@@ -223,6 +247,8 @@ mixin_config = {
 | read_timeout           | 30               | 流式读取超时秒                   | 开思考须 180+                                            |
 | stream                 | True             | 是否走 SSE 流式                  | CDN 截断时改 False                                       |
 | proxy                  | ——             | 单 session 代理                  | 海外端点加代理                                           |
+
+</details>
 
 ### 🆕 DeepSeek V4 接入配置
 
@@ -339,7 +365,8 @@ GA 会自动配好。如果你电脑上没有 Git，它也会帮你下载 portab
 
 启动方式：在终端执行 `python3 hub.pyw`，或直接双击 `hub.pyw` 文件。勾选想启动的服务即可，不用记命令行参数。
 
-📋 Hub 可管理的服务列表（点击展开）
+<details>
+<summary><strong>📋 Hub 可管理的服务列表</strong></summary>
 
 | #  | 服务名                   | 角色                                  | 启动命令                                            |
 | -- | ------------------------ | ------------------------------------- | --------------------------------------------------- |
@@ -355,6 +382,7 @@ GA 会自动配好。如果你电脑上没有 Git，它也会帮你下载 portab
 | 10 | frontends/wechatapp.py   | 个人微信（首次扫码登录）              | python frontends/wechatapp.py                       |
 | 11 | frontends/wecomapp.py    | 企业微信机器人                        | python frontends/wecomapp.py                        |
 
+</details>
 
 ---
 
