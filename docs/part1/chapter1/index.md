@@ -77,7 +77,7 @@ git clone https://github.com/lsdefine/GenericAgent.git
 
 ```bash
 # 1. cd 到下载的 GA 文件目录
-cd d:     (如果你的安装地址在D盘，终端打开后默认在c盘,安装在c盘跳过此步骤，仅限windows用户)
+d:     (如果你的安装地址在D盘，终端打开后默认在c盘,安装在c盘跳过此步骤，仅限windows用户)
 cd "你的GenericAgent路径"               （示例： cd D:/Document/GenericAgent-main） 
 
 # 2. 安装最小环境依赖
