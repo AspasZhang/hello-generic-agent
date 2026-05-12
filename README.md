@@ -80,6 +80,7 @@
 | [Case 2：登录态围观热榜 + 礼貌评论](docs/part3/chapter15/index.md) | 借登录态浏览器抓 B 站热榜首条（含 Top20 评论 + 弹幕样本），蒸馏 300 字总结，起草 3 条候选评论给用户审稿后发出；含 ask_user 双确认 + rapid_ocr 双验证 | ✅   |
 | [Case 3：自我探寻 · 全网社交画像](docs/part3/chapter16/index.md) | 一句"帮我做个性格分析"自动探测已登录平台、抓公开发文、JSON-mode 蒸馏 → 输出「快速版 MD + 深度版 HTML」双产物；含脱敏脚本 + frontend-design 反 AI slop | ✅   |
 | [Case 4：登录态视频离线 · 飞机上看一部番](docs/part3/chapter17/index.md) | 借 B 站登录态拿 12 集 DASH 流主备 URL，双层 ThreadPool 并发下载 + ffmpeg `-c copy` 合流；触类旁通到 YouTube 私有 playlist / 内部录像 | ✅   |
+| [Case 5：B站收藏夹语义分类](docs/part3/chapter18/index.md) | 通过 B 站 API 拉取收藏夹条目，交由大模型进行语义分类，并批量移动到目标收藏夹；强调语义优先、禁止关键词硬匹配 | ✅   |
 
 ## 💡 如何学习
 
