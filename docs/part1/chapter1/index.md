@@ -81,7 +81,7 @@ d:     (如果你的安装地址在D盘，终端打开后默认在c盘,安装在
 cd "你的GenericAgent路径"               （示例： cd D:/Document/GenericAgent-main） 
 
 # 2. 安装最小环境依赖
-pip install streamlit pywebview
+pip install streamlit==1.44.0 pywebview
 # 如果你的 Python 3 对应 pip3，则用：pip3 install streamlit pywebview
 ```
 
